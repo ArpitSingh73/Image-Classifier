@@ -1,4 +1,4 @@
-Steps to model creation --->
+Steps for model creation --->
 
 (1) Since I had no data required for the model creation and I was unable to download
     the pre-stored dataset so, I created my own small data by downloading each images by my own.
