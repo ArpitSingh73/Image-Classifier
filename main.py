@@ -19,8 +19,6 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
-from PIL import Image
-
 from matplotlib import pyplot as plt
 
 
@@ -33,7 +31,7 @@ labels = []
 for category_idx, category in enumerate(categories):
         # iterating through each image of folders `defective` and `non-defective`
     for file in os.listdir(os.path.join(input_dir, category)):
-        print(file)
+        # print(file)
         img_path = os.path.join(input_dir, category + "/" + file)
         # converting color images to gray-scale (64-bit floats),
         #  resizing it and then storing in a list
@@ -76,11 +74,23 @@ y_prediction = best_estimator.predict(x_test)
 
 # Checking the accuracy of our model, the highest I achieved was around 91%
 score = accuracy_score(y_prediction, y_test)
+precision = precision_score(y_test, y_prediction)
+recall = recall_score(y_test, y_prediction)
 print(str(score * 100), "% of samples were correctly classified")
 
 # Saving the best trained model to a pickle file for reusability
 pickle.dump(best_estimator, open("./model.pkl", "wb"))
 
+# passing all the test data one by by one, we can also pass individual images manually
+for i in range(0, 32):
+    # we can see the image passed as input
+    plt.imshow(x_test[i].reshape(80, 80, 3))
+    plt.show()
+    single_pred = best_estimator.predict(x_test[i].reshape(1, 19200))
+    if(single_pred == 1):
+        print("Its a non-defective image.")
+    else:
+        print("Its a defctive image.")    
 
 # Due to lack of kind images/data the performance of model is not too good
 # but the same model works far better on dog vs cat classification data
@@ -97,8 +107,9 @@ pickle.dump(best_estimator, open("./model.pkl", "wb"))
 # <--------------------------------------------------->
 
 
-# We just have to uncomment it and reload all the pickle file and can
+# We just have to uncomment below code and reload all the pickle file and can
 # pass data for prediction
+
 # data = pickle.load(open("data.pkl", "rb"))
 # labels = pickle.load(open("labels.pkl", "rb"))
 
@@ -110,12 +121,16 @@ pickle.dump(best_estimator, open("./model.pkl", "wb"))
 # # loading the stored trained model
 # best_estimator = pickle.load(open("model.pkl", "rb"))
 
-# # passing all the test data one by by one, we can also pass individual images manually
+# # # passing all the test data one by by one, we can also pass individual images manually
 # for i in range(0, 32):
 #     # we can see the image passed as input
 #     # plt.imshow(x_test[i].reshape(80, 80, 3))
 #     # plt.show()
-#     y_prediction = best_estimator.predict(x_test[i].reshape(1, 19200))
+#     single_pred = best_estimator.predict(x_test[i].reshape(1, 19200))
+#     if single_pred == 1:
+#         print("Its a non-defective image.")
+#     else:
+#         print("Its a defctive image.")
 
 
 # # # test performance
@@ -128,9 +143,10 @@ pickle.dump(best_estimator, open("./model.pkl", "wb"))
 # recall = recall_score(y_test, y_prediction)
 
 # print(score, precision, recall)
-# Some of previous score, precision and recall in order
-# 0.84375 0.8823529411764706 0.8333333333333334
-# 0.84375 1.0 0.7222222222222222
+# # Some of previous score, precision and recall in order
+# # 0.90625 0.9411764705882353 0.8888888888888888
+# # 0.84375 0.8823529411764706 0.8333333333333334
+# # 0.84375 1.0 0.7222222222222222
 
 # print(str(score * 100), "% of samples were correctly classified")
 
@@ -139,7 +155,6 @@ pickle.dump(best_estimator, open("./model.pkl", "wb"))
 # <------------------------------------------------------------------------->
 # <------------------------------------------------------------------------->
 # <------------------------------------------------------------------------->
-
 
 
 # Above problem could also have been solved with Deep Learnig by using CNN but

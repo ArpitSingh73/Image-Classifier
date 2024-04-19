@@ -17,4 +17,6 @@ Steps for model creation --->
 
 (6) At the end I trained my model with 80% of the data I had. I got about highest of 91% accuracy.
 
-(6) Done.
+(7) Best result 0.90625 0.9411764705882353 0.8888888888888888
+
+(8) Done.
