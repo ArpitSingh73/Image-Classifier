@@ -1,3 +1,14 @@
+Hi there, this application is an image classifier, and classifies industrial components images between defective and non-defective class. In this project I implemented :-
+Machine Learning✔
+Support Vector Classifier✔
+Data Preprocessing✔
+Data Cleaning✔
+Image Labelling✔
+Python✔
+etc.
+
+
+
 Steps for model creation --->
 
 (1) Since I had no data required for the model creation and I was unable to download
